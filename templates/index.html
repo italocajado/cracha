@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cadastro de Funcionários</title>
+</head>
+
+<body>
+    <h1>Cadastro de Funcionários</h1>
+
+    <form method="POST" action="/cadastrar" enctype="multipart/form-data">
+        <label for="nome_preferido">Nome Preferido:</label>
+        <input type="text" id="nome_preferido" name="nome_preferido" required><br>
+    
+        <label for="setor">Setor:</label>
+        <select id="setor" name="setor" required>
+            <option value="RH">RH</option>
+            <option value="TI">TI</option>
+            <option value="Vendas">Vendas</option>
+            <option value="Produção">Produção</option>
+        </select><br>
+    
+        <label for="terceirizado">Terceirizado:</label>
+        <input type="checkbox" id="terceirizado" name="terceirizado"><br>
+    
+        <label for="nome_completo">Nome Completo:</label>
+        <input type="text" id="nome_completo" name="nome_completo" required><br>
+    
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required><br>
+    
+        <label for="matricula">Número de Matrícula:</label>
+        <input type="text" id="matricula" name="matricula" required><br>
+    
+        <label for="foto">Foto do Funcionário:</label>
+        <input type="file" id="foto" name="foto" accept="image/*"><br>
+    
+        <button type="submit">Cadastrar</button>
+    </form>
+    
+
+    <h2>Funcionários Cadastrados</h2>
+    <ul>
+        {% for funcionario in funcionarios %}
+        <li>
+            {{ funcionario.nome_preferido }} - {{ funcionario.setor }} - {{ "Terceirizado" if funcionario.terceirizado
+            else "Não Terceirizado" }}
+            - <a href="{{ url_for('gerar_cracha', funcionario_id=loop.index0) }}" target="_blank">Gerar Crachá</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
